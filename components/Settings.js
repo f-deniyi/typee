@@ -12,7 +12,7 @@ const Setup = ({ handleSectionChange }) => {
     <div>
       <Row className='p-4'>
         <Col>
-          <Card className='p-3 text-white h-100'>
+          <Card className='p-3 text-white h-100 mb-2'>
             <div className='text-center'>
               <RiFileTextFill color='white' size='60' />
             </div>
@@ -42,7 +42,7 @@ const Setup = ({ handleSectionChange }) => {
           </Card>
         </Col>
         <Col>
-          <Card className='p-3 text-white h-100'>
+          <Card className='p-3 text-white h-100 mb-2'>
             <div className='text-center'>
               <BiTimeFive color='white' size='60' />
             </div>
@@ -71,7 +71,7 @@ const Setup = ({ handleSectionChange }) => {
           </Card>
         </Col>
       </Row>
-      <div className='w-100 text-white px-4'>
+      <div className='w-100 text-white px-4 mb-2'>
         <button
           className='btn cstm-btn w-100 text-white'
           
