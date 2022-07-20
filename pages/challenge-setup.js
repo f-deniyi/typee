@@ -13,8 +13,8 @@ const Setup = () => {
   const [paragraph, setParagraph] = useState('')
   const [userParagraph, setUserParagraph] = useState('')
   const [testParagraph, setTestParagraph] = useState('')
-
-  const [time, setTime] = useState('')
+  const [userText, setUserText] = useState(null)
+  const [time, setTime] = useState(null)
   const [result, setResult] = useState('')
 
   const handleSectionChange = sec => {
@@ -23,9 +23,7 @@ const Setup = () => {
   const handleTestResult = res => {
     setResult(res)
   }
-  const handleTimeSetup = () => {
-    setTime('10')
-  }
+
   const handleUserParagraph = par => {
     setUserParagraph(par)
   }
@@ -42,7 +40,12 @@ const Setup = () => {
   })
 
   const handleParagrpah = () => {
-    setParagraph(lorem.generateParagraphs(2))
+    console.log(userText)
+    if (userText) {
+      setParagraph(userText)
+    } else {
+      setParagraph(lorem.generateParagraphs(2))
+    }
   }
 
   const handleTestParagraph = e => {
@@ -58,8 +61,10 @@ const Setup = () => {
   }, [])
 
   useEffect(() => {
-    handleParagrpah()
-  }, [])
+    if (section === 'typing') {
+      handleParagrpah()
+    }
+  }, [section])
 
   return (
     <div className='px-2 wrapper'>
@@ -67,12 +72,18 @@ const Setup = () => {
         <h2 className='logo mt-3 text-center text-white'>Typee</h2>
       </div>
       {section === 'settings' && (
-        <Settings handleSectionChange={handleSectionChange} />
+        <Settings
+          handleSectionChange={handleSectionChange}
+          setTime={setTime}
+          setUserText={setUserText}
+          time={time}
+        />
       )}
       {section === 'typing' && (
         <Typing
           handleSectionChange={handleSectionChange}
           paragraph={paragraph}
+          userText={userText}
           time={time}
           userParagraph={userParagraph}
           testParagraph={testParagraph}

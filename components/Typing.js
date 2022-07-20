@@ -8,6 +8,7 @@ const Typing = ({
   testParagraph,
   paragraph,
   time,
+  userText,
   handleUserParagraph,
   handleSectionChange,
   handleTestParagraph
@@ -34,7 +35,7 @@ const Typing = ({
   }
 
   useEffect(() => {
-    startTimer('300')
+    startTimer((Number(time) * 60).toString())
   }, [])
 
   useEffect(() => {
@@ -42,6 +43,7 @@ const Typing = ({
       submit()
     }
   }, [timer])
+
   const submit = () => {
     const paragraphArr = paragraph.split('')
     const testParagraphArr = testParagraph.split('')

@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../styles/Home.module.css'
 import { Card, Row, Col } from 'reactstrap'
 import { BiTimeFive } from 'react-icons/bi'
 import { RiFileTextFill } from 'react-icons/ri'
 
-const Setup = ({ handleSectionChange }) => {
+const Setup = ({ handleSectionChange, setTime, setUserText, time }) => {
   const [textType, setTextType] = useState('')
   const [timeType, setTimeType] = useState('')
+
+  useEffect(() => {
+    console.log(textType)
+    if (textType === 'auto') {
+      setUserText(null)
+    }
+  }, [textType])
 
   return (
     <div>
@@ -36,7 +43,12 @@ const Setup = ({ handleSectionChange }) => {
             </div>
             <div className='mt-3 mb-2'>
               {textType === 'manual' && (
-                <textArea rows='5' className='form-control w-100' />
+                <textArea
+                  rows='5'
+                  onChange={e => setUserText(e.target.value)}
+                  className='form-control w-100'
+                  placeholder='Enter your preferred text'
+                />
               )}
             </div>
           </Card>
@@ -51,7 +63,10 @@ const Setup = ({ handleSectionChange }) => {
             <div>
               <select
                 className='w-100 form-control'
-                onChange={e => setTimeType(e.target.value)}
+                onChange={e => {
+                  setTimeType(e.target.value)
+                  setTime(e.target.value)
+                }}
               >
                 <option disabled selected>
                   Select time
@@ -65,7 +80,12 @@ const Setup = ({ handleSectionChange }) => {
             </div>
             <div className='mt-3'>
               {timeType === 'custom' && (
-                <input className='form-control w-100' />
+                <input
+                  onChange={e => setTime(e.target.value)}
+                  className='form-control w-100'
+                  placeholder='Enter your preferred time in minutes'
+                  type='number'
+                />
               )}
             </div>
           </Card>
@@ -73,8 +93,8 @@ const Setup = ({ handleSectionChange }) => {
       </Row>
       <div className='w-100 text-white px-4 mb-2'>
         <button
+          disabled={!time || time === 'custom'}
           className='btn cstm-btn w-100 text-white'
-          
           onClick={() => {
             handleSectionChange('typing')
           }}
